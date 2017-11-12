@@ -1,0 +1,234 @@
+﻿<UserControl x:Class="UIUniversal.Views.TrackStepView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:interop="using:Windows.UI.Xaml.Interop"
+             xmlns:uiUniversal="using:UIUniversal"
+             mc:Ignorable="d"
+             FontFamily="{StaticResource ContentControlThemeFontFamily}"
+             Foreground="{StaticResource SystemControlForegroundBaseHighBrush }">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ms-appx:///UIUniversal/Styles/BraunStandardCheckBox.xaml" />
+                <ResourceDictionary Source="ms-appx:///UIUniversal/Styles/BraunSliderKnob.xaml" />
+                <ResourceDictionary Source="ms-appx:///UIUniversal/Styles/BlinkingLED.xaml" />
+                <ResourceDictionary Source="ms-appx:///UIUniversal/Styles/WaveForm.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Border BorderThickness="1,1,1,1" BorderBrush="#9F6B6B6B" Margin="0,0,0,0">
+        <Grid >
+            <Grid.Background>
+                <!--<LinearGradientBrush EndPoint="0,0" StartPoint="1,0">
+                    <GradientStop Color="#A9A69E" Offset="-0.1"/>
+                    <GradientStop Color="#E9E4DA" Offset="0.1"/>
+                    <GradientStop Color="#E9E4DA" Offset="0.9"/>
+                    <GradientStop Color="#A9A69E" Offset="1.1"/>
+                </LinearGradientBrush>-->
+                <SolidColorBrush Color="#E9E4DA"></SolidColorBrush>
+            </Grid.Background>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="20" />
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="1" Grid.ColumnSpan="2" Margin="0,0" Foreground="#6B6B6B" HorizontalAlignment="Center"  Text="{Binding Path=Description}"></TextBlock>
+            <Grid Grid.Column="0" Grid.Row="0" Margin="0,20,0,0" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="100"></RowDefinition>
+                    <RowDefinition Height="100"></RowDefinition>
+                    <RowDefinition Height="100"></RowDefinition>
+                    <RowDefinition Height="100"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+                
+                    <uiUniversal:TestScroller  Grid.Row="0" Minimum="0.0" Maximum="1.0" Height="110" Width="100" Style="{StaticResource ScrollBarStyle1}" Value="{Binding  Path=Volume, Mode=TwoWay}"/>
+                    <TextBlock Grid.Row="0" HorizontalAlignment="Center" Height="30" Foreground="#6B6B6B" Margin="0,60,0,0" Text="{Binding  Path=Volume, Mode=TwoWay}"/>
+                    <TextBlock Foreground="#6B6B6B" HorizontalAlignment="Left" VerticalAlignment="Top" Height="20" FontSize="12" Grid.Row="0" Margin="0,55,0,0" Text="Volume">
+                    <TextBlock.RenderTransform>
+                        <RotateTransform Angle="270" />
+                    </TextBlock.RenderTransform>    
+                </TextBlock>
+
+                    <uiUniversal:TestScroller Grid.Row="1"  Minimum="-1.0" Maximum="1.0" Height="110" Width="100" Style="{StaticResource ScrollBarStyle1}" Value="{Binding  Path=Pan, Mode=TwoWay}"/>
+                    <TextBlock Grid.Row="1" HorizontalAlignment="Center"   Height="30" Foreground="#6B6B6B" Margin="0,60,0,0" Text="{Binding  Path=Pan, Mode=TwoWay}"/>
+                <TextBlock Foreground="#6B6B6B" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="12" Grid.Row="1" Margin="0,42,0,0" Text="Pan">
+                    <TextBlock.RenderTransform>
+                        <RotateTransform Angle="270" />
+                    </TextBlock.RenderTransform>
+                </TextBlock>
+
+                <uiUniversal:TestScroller Grid.Row="2" Minimum="0.0" Maximum="3.0" Height="110" Width="100" Style="{StaticResource ScrollBarStyle1}" Value="{Binding  Path=Pitch, Mode=TwoWay}" />
+                <TextBlock Foreground="#6B6B6B" HorizontalAlignment="Center" Height="30" Grid.Row="2" Margin="0,60,0,0" Text="{Binding  Path=Pitch, Mode=TwoWay}"/>
+                <TextBlock Grid.Row="1" HorizontalAlignment="Center"   Height="30" Foreground="#6B6B6B" Margin="0,60,0,0" Text="{Binding  Path=Pan, Mode=TwoWay}"/>
+                <TextBlock Foreground="#6B6B6B" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="12" Grid.Row="2" Margin="0,45,0,0" Text="Pitch">
+                    <TextBlock.RenderTransform>
+                        <RotateTransform Angle="270" />
+                    </TextBlock.RenderTransform>
+                </TextBlock>
+
+                <CheckBox VerticalAlignment="Top"  Style="{StaticResource WaveFormCheckBox}" Grid.Row="3" x:Name="Select" Content="Library" />
+                
+            </Grid>
+
+            <Grid Grid.Column="1" Grid.Row="0" Margin="0,0,0,0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" x:Name="Container">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />   
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <Grid Margin="0,0,0,0"  Grid.Row="0" Grid.Column="0" >
+                       <Grid.RowDefinitions><RowDefinition Height="14"></RowDefinition><RowDefinition Height="*"></RowDefinition></Grid.RowDefinitions><Image Height="14" Grid.Row="0" ></Image>
+                    <CheckBox Grid.Row="1" Name="Play1" Style="{StaticResource BraunCheckBox}" HorizontalAlignment="Center" />
+                </Grid>
+                <Grid  Grid.Row="0" Grid.Column="1" >
+                       <Grid.RowDefinitions><RowDefinition Height="14"></RowDefinition><RowDefinition Height="*"></RowDefinition></Grid.RowDefinitions><Image Height="14" Grid.Row="0" ></Image>
+                    <CheckBox Grid.Row="1" Name="Play2" Style="{StaticResource BraunCheckBox}" HorizontalAlignment="Center" />
+                </Grid>
+                <Grid  Grid.Row="0" Grid.Column="2" >
+                       <Grid.RowDefinitions><RowDefinition Height="14"></RowDefinition><RowDefinition Height="*"></RowDefinition></Grid.RowDefinitions><Image Height="14" Grid.Row="0" ></Image>
+                    <CheckBox Grid.Row="1" Name="Play3" Style="{StaticResource BraunCheckBox}" HorizontalAlignment="Center" />
+                </Grid>
+                <Grid  Grid.Row="0" Grid.Column="3" >
+                           <Grid.RowDefinitions><RowDefinition Height="14"></RowDefinition><RowDefinition Height="*"></RowDefinition></Grid.RowDefinitions><Image Height="14" Grid.Row="0" ></Image>
+                    <CheckBox Grid.Row="1"  Name="Play4" Style="{StaticResource BraunCheckBox}" HorizontalAlignment="Center" />
+                </Grid>
+                <Grid  Grid.Row="1" Grid.Column="0"  >
+                           <Grid.RowDefinitions><RowDefinition Height="14"></RowDefinition><RowDefinition Height="*"></RowDefinition></Grid.RowDefinitions><Image Height="14" Grid.Row="0" ></Image>
+                    <CheckBox Grid.Row="1"  Name="Play5" Style="{StaticResource BraunCheckBox}" HorizontalAlignment="Center" />
+                </Grid>
+                <Grid  Grid.Row="1" Grid.Column="1"  >
+                           <Grid.RowDefinitions><RowDefinition Height="14"></RowDefinition><RowDefinition Height="*"></RowDefinition></Grid.RowDefinitions><Image Height="14" Grid.Row="0" ></Image>
+                    <CheckBox Grid.Row="1"  Name="Play6" Style="{StaticResource BraunCheckBox}" HorizontalAlignment="Center" />
+                </Grid>
+                <Grid  Grid.Row="1" Grid.Column="2"  >
+                           <Grid.RowDefinitions><RowDefinition Height="14"></RowDefinition><RowDefinition Height="*"></RowDefinition></Grid.RowDefinitions><Image Height="14" Grid.Row="0" ></Image>
+                    <CheckBox Grid.Row="1"  Name="Play7" Style="{StaticResource BraunCheckBox}" HorizontalAlignment="Center" />
+                </Grid>
+                <Grid  Grid.Row="1" Grid.Column="3"  >
+                           <Grid.RowDefinitions><RowDefinition Height="14"></RowDefinition><RowDefinition Height="*"></RowDefinition></Grid.RowDefinitions><Image Height="14" Grid.Row="0" ></Image>
+                    <CheckBox Grid.Row="1"  Name="Play8" Style="{StaticResource BraunCheckBox}" HorizontalAlignment="Center" />
+                </Grid>
+
+                <Grid  Grid.Row="2" Grid.Column="0"  >
+                           <Grid.RowDefinitions><RowDefinition Height="14"></RowDefinition><RowDefinition Height="*"></RowDefinition></Grid.RowDefinitions><Image Height="14" Grid.Row="0" ></Image>
+                    <CheckBox Grid.Row="1"  Name="Play9" Style="{StaticResource BraunCheckBox}" HorizontalAlignment="Center" />
+                </Grid>
+                <Grid  Grid.Row="2" Grid.Column="1"  >
+                           <Grid.RowDefinitions><RowDefinition Height="14"></RowDefinition><RowDefinition Height="*"></RowDefinition></Grid.RowDefinitions><Image Height="14" Grid.Row="0" ></Image>
+                    <CheckBox Grid.Row="1"  Name="Play10" Style="{StaticResource BraunCheckBox}" HorizontalAlignment="Center" />
+                </Grid>
+                <Grid  Grid.Row="2" Grid.Column="2"  >
+                           <Grid.RowDefinitions><RowDefinition Height="14"></RowDefinition><RowDefinition Height="*"></RowDefinition></Grid.RowDefinitions><Image Height="14" Grid.Row="0" ></Image>
+                    <CheckBox Grid.Row="1"  Name="Play11" Style="{StaticResource BraunCheckBox}" HorizontalAlignment="Center" />
+                </Grid>
+                <Grid  Grid.Row="2" Grid.Column="3"  >
+                           <Grid.RowDefinitions><RowDefinition Height="14"></RowDefinition><RowDefinition Height="*"></RowDefinition></Grid.RowDefinitions><Image Height="14" Grid.Row="0" ></Image>
+                    <CheckBox Grid.Row="1"  Name="Play12" Style="{StaticResource BraunCheckBox}" HorizontalAlignment="Center" />
+                </Grid>
+                <Grid  Grid.Row="3" Grid.Column="0" >
+                           <Grid.RowDefinitions><RowDefinition Height="14"></RowDefinition><RowDefinition Height="*"></RowDefinition></Grid.RowDefinitions><Image Height="14" Grid.Row="0" ></Image>
+                    <CheckBox Grid.Row="1"  Name="Play13" Style="{StaticResource BraunCheckBox}" HorizontalAlignment="Center" />
+                </Grid>
+                <Grid  Grid.Row="3" Grid.Column="1" >
+                           <Grid.RowDefinitions><RowDefinition Height="14"></RowDefinition><RowDefinition Height="*"></RowDefinition></Grid.RowDefinitions><Image Height="14" Grid.Row="0" ></Image>
+                    <CheckBox Grid.Row="1"  Name="Play14" Style="{StaticResource BraunCheckBox}" HorizontalAlignment="Center" />
+                </Grid>
+                <Grid  Grid.Row="3" Grid.Column="2" >
+                           <Grid.RowDefinitions><RowDefinition Height="14"></RowDefinition><RowDefinition Height="*"></RowDefinition></Grid.RowDefinitions><Image Height="14" Grid.Row="0" ></Image>
+                    <CheckBox Grid.Row="1"  Name="Play15" Style="{StaticResource BraunCheckBox}" HorizontalAlignment="Center" />
+                </Grid>
+                <Grid  Grid.Row="3" Grid.Column="3" >
+                           <Grid.RowDefinitions><RowDefinition Height="14"></RowDefinition><RowDefinition Height="*"></RowDefinition></Grid.RowDefinitions><Image Height="14" Grid.Row="0" ></Image>
+                    <CheckBox Grid.Row="1"  Name="Play16" Style="{StaticResource BraunCheckBox}" HorizontalAlignment="Center" />
+                </Grid>
+
+
+                <Grid  Grid.Row="4" Grid.Column="0" >
+                           <Grid.RowDefinitions><RowDefinition Height="14"></RowDefinition><RowDefinition Height="*"></RowDefinition></Grid.RowDefinitions><Image Height="14" Grid.Row="0" ></Image>
+                    <CheckBox Grid.Row="1"  Name="Play17" Style="{StaticResource BraunCheckBox}" HorizontalAlignment="Center" />
+                </Grid>
+                <Grid  Grid.Row="4" Grid.Column="1" >
+                           <Grid.RowDefinitions><RowDefinition Height="14"></RowDefinition><RowDefinition Height="*"></RowDefinition></Grid.RowDefinitions><Image Height="14" Grid.Row="0" ></Image>
+                    <CheckBox Grid.Row="1"  Name="Play18" Style="{StaticResource BraunCheckBox}" HorizontalAlignment="Center" />
+                </Grid>
+                <Grid  Grid.Row="4" Grid.Column="2" >
+                           <Grid.RowDefinitions><RowDefinition Height="14"></RowDefinition><RowDefinition Height="*"></RowDefinition></Grid.RowDefinitions><Image Height="14" Grid.Row="0" ></Image>
+                    <CheckBox Grid.Row="1"  Name="Play19" Style="{StaticResource BraunCheckBox}" HorizontalAlignment="Center" />
+                </Grid>
+                <Grid  Grid.Row="4" Grid.Column="3" >
+                           <Grid.RowDefinitions><RowDefinition Height="14"></RowDefinition><RowDefinition Height="*"></RowDefinition></Grid.RowDefinitions><Image Height="14" Grid.Row="0" ></Image>
+                    <CheckBox Grid.Row="1"  Name="Play20" Style="{StaticResource BraunCheckBox}" HorizontalAlignment="Center" />
+                </Grid>
+
+                <Grid  Grid.Row="5" Grid.Column="0" >
+                           <Grid.RowDefinitions><RowDefinition Height="14"></RowDefinition><RowDefinition Height="*"></RowDefinition></Grid.RowDefinitions><Image Height="14" Grid.Row="0" ></Image>
+                    <CheckBox Grid.Row="1"  Name="Play21" Style="{StaticResource BraunCheckBox}" HorizontalAlignment="Center" />
+                </Grid>
+                <Grid  Grid.Row="5" Grid.Column="1" >
+                           <Grid.RowDefinitions><RowDefinition Height="14"></RowDefinition><RowDefinition Height="*"></RowDefinition></Grid.RowDefinitions><Image Height="14" Grid.Row="0" ></Image>
+                    <CheckBox Grid.Row="1"  Name="Play22" Style="{StaticResource BraunCheckBox}" HorizontalAlignment="Center" />
+                </Grid>
+                <Grid  Grid.Row="5" Grid.Column="2" >
+                           <Grid.RowDefinitions><RowDefinition Height="14"></RowDefinition><RowDefinition Height="*"></RowDefinition></Grid.RowDefinitions><Image Height="14" Grid.Row="0" ></Image>
+                    <CheckBox Grid.Row="1"  Name="Play23" Style="{StaticResource BraunCheckBox}" HorizontalAlignment="Center" />
+                </Grid>
+                <Grid  Grid.Row="5" Grid.Column="3" >
+                           <Grid.RowDefinitions><RowDefinition Height="14"></RowDefinition><RowDefinition Height="*"></RowDefinition></Grid.RowDefinitions><Image Height="14" Grid.Row="0" ></Image>
+                    <CheckBox Grid.Row="1"  Name="Play24" Style="{StaticResource BraunCheckBox}" HorizontalAlignment="Center" />
+                </Grid>
+
+                <Grid  Grid.Row="6" Grid.Column="0"  >
+                           <Grid.RowDefinitions><RowDefinition Height="14"></RowDefinition><RowDefinition Height="*"></RowDefinition></Grid.RowDefinitions><Image Height="14" Grid.Row="0" ></Image>
+                    <CheckBox Grid.Row="1"  Name="Play25" Style="{StaticResource BraunCheckBox}" HorizontalAlignment="Center" />
+                </Grid>
+                <Grid  Grid.Row="6" Grid.Column="1"  >
+                           <Grid.RowDefinitions><RowDefinition Height="14"></RowDefinition><RowDefinition Height="*"></RowDefinition></Grid.RowDefinitions><Image Height="14" Grid.Row="0" ></Image>
+                    <CheckBox Grid.Row="1"  Name="Play26" Style="{StaticResource BraunCheckBox}" HorizontalAlignment="Center" />
+                </Grid>
+                <Grid  Grid.Row="6" Grid.Column="2"  >
+                           <Grid.RowDefinitions><RowDefinition Height="14"></RowDefinition><RowDefinition Height="*"></RowDefinition></Grid.RowDefinitions><Image Height="14" Grid.Row="0" ></Image>
+                    <CheckBox Grid.Row="1"  Name="Play27" Style="{StaticResource BraunCheckBox}" HorizontalAlignment="Center" />
+                </Grid>
+                <Grid    Grid.Row="6" Grid.Column="3"  >
+                           <Grid.RowDefinitions><RowDefinition Height="14"></RowDefinition><RowDefinition Height="*"></RowDefinition></Grid.RowDefinitions><Image Height="14" Grid.Row="0" ></Image>
+                    <CheckBox Grid.Row="1"  Name="Play28" Style="{StaticResource BraunCheckBox}" HorizontalAlignment="Center" />
+                </Grid>
+                <Grid  Grid.Row="7" Grid.Column="0"  >
+                           <Grid.RowDefinitions><RowDefinition Height="14"></RowDefinition><RowDefinition Height="*"></RowDefinition></Grid.RowDefinitions><Image Height="14" Grid.Row="0" ></Image>
+                    <CheckBox Grid.Row="1"  Name="Play29" Style="{StaticResource BraunCheckBox}" HorizontalAlignment="Center" />
+                </Grid>
+                <Grid  Grid.Row="7" Grid.Column="1"  >
+                           <Grid.RowDefinitions><RowDefinition Height="14"></RowDefinition><RowDefinition Height="*"></RowDefinition></Grid.RowDefinitions><Image Height="14" Grid.Row="0" ></Image>
+                    <CheckBox Grid.Row="1"  Name="Play30" Style="{StaticResource BraunCheckBox}" HorizontalAlignment="Center" />
+                </Grid>
+                <Grid  Grid.Row="7" Grid.Column="2"  >
+                           <Grid.RowDefinitions><RowDefinition Height="14"></RowDefinition><RowDefinition Height="*"></RowDefinition></Grid.RowDefinitions><Image Height="14" Grid.Row="0" ></Image>
+                    <CheckBox Grid.Row="1"  Name="Play31" Style="{StaticResource BraunCheckBox}" HorizontalAlignment="Center" />
+                </Grid>
+                <Grid  Grid.Row="7" Grid.Column="3"  >
+                           <Grid.RowDefinitions><RowDefinition Height="14"></RowDefinition><RowDefinition Height="*"></RowDefinition></Grid.RowDefinitions><Image Height="14" Grid.Row="0" ></Image>
+                    <CheckBox Grid.Row="1"  Name="Play32" Style="{StaticResource BraunCheckBox}" HorizontalAlignment="Center" />
+                </Grid>
+            </Grid>
+        </Grid>
+    </Border>
+</UserControl>
