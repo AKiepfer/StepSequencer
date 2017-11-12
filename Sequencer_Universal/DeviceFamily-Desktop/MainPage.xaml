@@ -1,0 +1,134 @@
+﻿<Page
+    x:Class="Sequencer_Universal.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:micro="using:Caliburn.Micro"
+    xmlns:uiUniversal="using:UIUniversal"
+    mc:Ignorable="d"
+    FontFamily="{StaticResource ContentControlThemeFontFamily}"
+    Foreground="{StaticResource SystemControlForegroundBaseHighBrush }">
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ms-appx:///UIUniversal/Styles/StopButton.xaml" />
+                <ResourceDictionary Source="ms-appx:///UIUniversal/Styles/PauseButton.xaml" />
+                <ResourceDictionary Source="ms-appx:///UIUniversal/Styles/PlayButton.xaml" />
+                <ResourceDictionary Source="ms-appx:///UIUniversal/Styles/BraunSliderKnob.xaml" />
+                <ResourceDictionary Source="ms-appx:///UIUniversal/Styles/AddButton.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <micro:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"></micro:BooleanToVisibilityConverter>
+        </ResourceDictionary>
+    </Page.Resources>
+    <!--LayoutRoot is the root grid where all page content is placed-->
+    <Page.BottomAppBar>
+        <CommandBar IsEnabled="{Binding Path=IsNotRendering}" IsOpen="False" ClosedDisplayMode="Minimal" Opacity="0.9" >
+            <CommandBar.PrimaryCommands>
+                <AppBarButton Label="Save" Click="ApplicationBarSaveButton_OnClick">
+                    <AppBarButton.Icon>
+                        <BitmapIcon UriSource="/Images/save.png" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </AppBarButton.Icon>
+                </AppBarButton>
+                <AppBarButton Label="Load" Click="ApplicationBarLoadButton_OnClick">
+                    <AppBarButton.Icon>
+                        <BitmapIcon UriSource="/Images/load.png" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </AppBarButton.Icon>
+                </AppBarButton>
+                <AppBarButton Label="Render" Click="ApplicationBarRenderButton_OnClick">
+                    <AppBarButton.Icon>
+                        <BitmapIcon UriSource="/Images/save.png" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </AppBarButton.Icon>
+                </AppBarButton>
+            </CommandBar.PrimaryCommands>
+        </CommandBar>
+    </Page.BottomAppBar>
+    <Grid x:Name="LayoutRoot" Background="#E9E4DA">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="200"/>
+        </Grid.RowDefinitions>
+
+        <FlipView ItemsSource="{Binding Path=TrackViewModels}" x:Name="CoverFlowControl">
+            <FlipView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </FlipView.ItemsPanel>
+            <FlipView.ItemTemplate>
+                <DataTemplate>
+                    <ContentControl micro:View.Model="{Binding}" />
+                </DataTemplate>
+            </FlipView.ItemTemplate>
+        </FlipView>
+
+        <Grid VerticalAlignment="Bottom" Grid.Row="1" Width="520" HorizontalAlignment="Left">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="100"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <uiUniversal:TestScroller Grid.Row="0" Grid.Column="0" Minimum="0.0" Maximum="1.0" Height="110" Width="100" Style="{StaticResource ScrollBarStyle1}" Value="{Binding Path=MasterVolume, Mode=TwoWay}"/>
+            <TextBlock HorizontalAlignment="Center" Foreground="#6B6B6B" Margin="0,80,0,0" Grid.Row="0" Grid.Column="0" Text="{Binding Path=MasterVolume, Mode=TwoWay}"></TextBlock>
+            <TextBlock Foreground="#6B6B6B" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="12" Grid.Row="0" Grid.Column="0" Margin="15,52,0,0" Text="Volume">
+                <TextBlock.RenderTransform>
+                    <RotateTransform Angle="270" />
+                </TextBlock.RenderTransform>
+            </TextBlock>
+
+            <uiUniversal:TestScroller Grid.Row="0" Grid.Column="1" Minimum="-1.0" Maximum="1.0" Height="110" Width="100" Style="{StaticResource ScrollBarStyle1}" Value="{Binding Path=MasterPan, Mode=TwoWay}"/>
+            <TextBlock HorizontalAlignment="Center" Foreground="#6B6B6B"  Margin="0,80,0,0" Grid.Row="0" Grid.Column="1" Text="{Binding Path=MasterPan, Mode=TwoWay}"></TextBlock>
+            <TextBlock Foreground="#6B6B6B" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="12" Grid.Row="0" Grid.Column="1" Margin="15,42,0,0" Text="Pan">
+                <TextBlock.RenderTransform>
+                    <RotateTransform Angle="270" />
+                </TextBlock.RenderTransform>
+            </TextBlock>
+
+            <uiUniversal:TestScroller Grid.Row="0" Grid.Column="2" Minimum="10" Maximum="200" LargeChange="1.0" SmallChange="1.0" Height="110" Width="100" Style="{StaticResource ScrollBarStyle1}" Value="{Binding Path=MasterBpm, Mode=TwoWay}"/>
+            <TextBlock HorizontalAlignment="Center" Foreground="#6B6B6B" Margin="0,80,0,0" Grid.Row="0" Grid.Column="2" Text="{Binding Path=MasterBpm, Mode=TwoWay}"></TextBlock>
+            <TextBlock Foreground="#6B6B6B" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="12" Grid.Row="0" Grid.Column="2" Margin="15,45,0,0" Text="BPM">
+                <TextBlock.RenderTransform>
+                    <RotateTransform Angle="270" />
+                </TextBlock.RenderTransform>
+            </TextBlock>
+
+            <CheckBox Grid.Row="1" VerticalAlignment="Top" Grid.Column="0" Style="{StaticResource BraunRoundGreenPlayCheckBox}"   IsEnabled="{Binding Path=PlayIsEnabled, Mode=TwoWay}"     IsChecked="{Binding Path=PlayIsChecked, Mode=TwoWay}"   x:Name="Start" Content="Play" />
+            <CheckBox Grid.Row="1" VerticalAlignment="Top" Grid.Column="1" Style="{StaticResource BraunRoundWhitePauseCheckBox}"  IsEnabled="{Binding Path=PauseIsEnabled, Mode=TwoWay}"    IsChecked="{Binding Path=PauseIsChecked, Mode=TwoWay}" x:Name="Pause" Content="Pause" />
+            <CheckBox Grid.Row="1" VerticalAlignment="Top" Grid.Column="2" Style="{StaticResource BraunRoundWhiteStopCheckBox}"   IsEnabled="{Binding Path=StopIsEnabled, Mode=TwoWay}"     IsChecked="{Binding Path=StopIsChecked, Mode=TwoWay}"   x:Name="Stop" Content="Stop" />
+
+            <CheckBox Grid.Row="0" Grid.Column="3" Style="{StaticResource AddCheckBox}" x:Name="Add" Content="Add" />
+
+            <TextBlock VerticalAlignment="Bottom" Grid.Row="1" Grid.Column="0" FontFamily="Bradley Hand ITC" Text="{Binding Path=Version}" FontSize="24" Foreground="#FFD62020" CacheMode="BitmapCache">
+                <TextBlock.Projection>
+                    <PlaneProjection RotationX="-2.801" RotationY="-8.358" RotationZ="1.962"/>
+                </TextBlock.Projection></TextBlock>
+        </Grid>
+
+        <!--Uncomment to see an alignment grid to help ensure your controls are
+            aligned on common boundaries.  The image has a top margin of -32px to
+            account for the System Tray. Set this to 0 (or remove the margin altogether)
+            if the System Tray is hidden.
+
+            Before shipping remove this XAML and the image itself.-->
+        <!--<Image Source="/Assets/AlignmentGrid.png" VerticalAlignment="Top" Height="800" Width="480" Margin="0,-32,0,0" Grid.Row="0" Grid.RowSpan="2" IsHitTestVisible="False" />-->
+
+        <Grid Height="Auto" RowSpan="2" Background="#E9E4DA" Opacity="0.8" Visibility="{Binding Path=IsRendering, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="20"></RowDefinition>
+                <RowDefinition Height="20"></RowDefinition>
+                <RowDefinition Height="20"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="1" FontSize="15" FontWeight="Bold"  HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#6B6B6B" Text="{Binding Path=RenderProgress}"></TextBlock>
+            <ProgressBar Grid.Row="2" Foreground="#6B6B6B" Background="#6B6B6B" HorizontalAlignment="Stretch" VerticalAlignment="Center" IsIndeterminate="{Binding Path=IsRendering}"></ProgressBar>
+        </Grid>
+    </Grid>
+
+</Page>

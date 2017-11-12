@@ -1,0 +1,77 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:UIUniversal="clr-namespace:UIUniversal"
+    xmlns:uiUniversal="using:UIUniversal">
+
+    <BitmapImage x:Key="Clean" UriSource="ms-appx:///UIUniversal/Assets/Knob/Knob_clean.png" />
+    <BitmapImage x:Key="Ring" UriSource="ms-appx:///UIUniversal/Assets/Knob/Knob_move_ring.png" />
+    <BitmapImage x:Key="Shadow" UriSource="ms-appx:///UIUniversal/Assets/Knob/Knob_top_with_shadows.png"></BitmapImage>
+    <BitmapImage x:Key="Indicator" UriSource="ms-appx:///UIUniversal/Assets/Knob/Knob_move_indicator.png" />
+    
+    <Style x:Key="ScrollBarStyle1" TargetType="uiUniversal:TestScroller">
+        <Setter Property="Padding" Value="1"/>
+        <Setter Property="IsTabStop" Value="False"/>
+        <Setter Property="MinWidth" Value="90"/>
+        <Setter Property="MinHeight" Value="100"/>
+        <Setter Property="IsHitTestVisible" Value="true"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="uiUniversal:TestScroller">
+                        <Grid x:Name="PART_DragOverlay">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Image Grid.Row="0" Stretch="None" VerticalAlignment="Top" Visibility="Visible"
+                                   Source="{Binding Source={StaticResource Clean}}" />
+
+                            <Image Grid.Row="0" Margin="0,3,0,0" Stretch="None" VerticalAlignment="Top"
+                                   x:Name="PART_RotateImage" Visibility="Visible"
+                                   Source="{Binding Source={StaticResource Ring}}" />
+                            <Image Grid.Row="0" Margin="0,3,0,0" Stretch="None" Visibility="Visible"
+                                   Source="{Binding Source={StaticResource Shadow}}">
+                            </Image>
+                            <Image Grid.Row="0" Margin="0,3,0,0" Stretch="None" VerticalAlignment="Top"
+                                   x:Name="PART_RotateIndicator" Visibility="Visible"
+                                   Source="{Binding Source={StaticResource Indicator}}" />
+                            <TextBox IsEnabled="False" TextAlignment="Center"
+                                     BorderThickness="0" Background="Transparent" x:Name="PART_ValueTextBox"
+                                     Foreground="Red" Grid.Row="0" Margin="0, 65 ,0,0" VerticalAlignment="Top" />
+                        </Grid>
+                </ControlTemplate>
+                <!--<ControlTemplate TargetType="ScrollBar">
+                    <Grid>
+                        <Grid x:Name="VerticalRoot" Background="Transparent" Width="{TemplateBinding Width}">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <RepeatButton x:Name="VerticalSmallDecrease" Visibility="Collapsed"/>
+                            <RepeatButton x:Name="VerticalLargeDecrease" Grid.Row="1" Template="{x:Null}" Width="0"/>
+                            <Thumb x:Name="VerticalThumb" Background="{TemplateBinding Background}" Margin="{TemplateBinding Padding}" MinHeight="72" Grid.Row="2" Template="{StaticResource PhoneScrollbarThumb}" Width="{TemplateBinding Width}"/>
+                            <RepeatButton x:Name="VerticalLargeIncrease" Grid.Row="3" Template="{x:Null}" Width="0"/>
+                            <RepeatButton x:Name="VerticalSmallIncrease" Visibility="Collapsed"/>
+                        </Grid>
+                        <Grid x:Name="HorizontalRoot" Background="Transparent" Height="{TemplateBinding Height}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <RepeatButton x:Name="HorizontalSmallDecrease" Visibility="Collapsed"/>
+                            <RepeatButton x:Name="HorizontalLargeDecrease" Grid.Column="1" Height="0" Template="{x:Null}"/>
+                            <Thumb x:Name="HorizontalThumb" Background="{TemplateBinding Background}" Grid.Column="2" Height="{TemplateBinding Height}" Margin="{TemplateBinding Padding}" MinWidth="72" Template="{StaticResource PhoneScrollbarThumb}"/>
+                            <RepeatButton x:Name="HorizontalLargeIncrease" Grid.Column="3" Height="0" Template="{x:Null}"/>
+                            <RepeatButton x:Name="HorizontalSmallIncrease" Visibility="Collapsed"/>
+                        </Grid>
+                    </Grid>
+                </ControlTemplate>-->
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

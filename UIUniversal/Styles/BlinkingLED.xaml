@@ -1,0 +1,85 @@
+﻿ <ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+
+    <BitmapImage x:Key="On" UriSource="ms-appx:///UIUniversal/Assets/Blinking_LED/On.png"></BitmapImage>
+    <BitmapImage x:Key="Off" UriSource="ms-appx:///UIUniversal/Assets/Blinking_LED/Off.png"></BitmapImage>
+
+<Style x:Key="BlinkingLed" TargetType="CheckBox">
+    <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Foreground" Value="{StaticResource SystemControlForegroundBaseHighBrush }" />
+        <Setter Property="Padding" Value="2,3,0,0" />
+        <Setter Property="BorderThickness" Value="0,0,0,0" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="HorizontalContentAlignment" Value="Left" />
+        <Setter Property="VerticalContentAlignment" Value="Top" />
+        <Setter Property="FontFamily" Value="{StaticResource ContentControlThemeFontFamily}" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="IsEnabled" Value="False" />
+    <Setter Property="Template">
+        <Setter.Value>
+            <ControlTemplate TargetType="CheckBox">
+
+                <Border BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            Background="{TemplateBinding Background}">
+                    <VisualStateManager.VisualStateGroups>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal" />
+                            <VisualState x:Name="PointerOver" />
+                            <VisualState x:Name="Pressed" />
+                            <VisualState x:Name="Disabled" />
+                        </VisualStateGroup>
+                        <VisualStateGroup x:Name="CheckStates">
+                            <VisualState x:Name="Checked">
+                                <Storyboard>
+                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility"
+                                                                       Storyboard.TargetName="Off">
+                                        <DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed" />
+                                    </ObjectAnimationUsingKeyFrames>
+                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility"
+                                                                       Storyboard.TargetName="On">
+                                        <DiscreteObjectKeyFrame KeyTime="0" Value="Visible" />
+                                    </ObjectAnimationUsingKeyFrames>
+                                </Storyboard>
+                            </VisualState>
+                            <VisualState x:Name="Unchecked">
+                                <Storyboard>
+                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility"
+                                                                       Storyboard.TargetName="On">
+                                        <DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed" />
+                                    </ObjectAnimationUsingKeyFrames>
+                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility"
+                                                                       Storyboard.TargetName="Off">
+                                        <DiscreteObjectKeyFrame KeyTime="0" Value="Visible" />
+                                    </ObjectAnimationUsingKeyFrames>
+                                </Storyboard>
+                            </VisualState>
+                            <VisualState x:Name="Indeterminate" />
+                        </VisualStateGroup>
+                        <VisualStateGroup x:Name="FocusStates">
+                            <VisualState x:Name="Focused" />
+                            <VisualState x:Name="Unfocused" />
+                            <VisualState x:Name="PointerFocused" />
+                        </VisualStateGroup>
+                    </VisualStateManager.VisualStateGroups>
+                    <Viewbox Stretch="Uniform">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Image x:Name="On" Visibility="Visible" Source="{Binding Source={StaticResource On}}"></Image>
+                            <Image x:Name="Off" Visibility="Collapsed"
+                                       Source="{Binding Source={StaticResource Off}}">
+                            </Image>
+                        </Grid>
+                    </Viewbox>
+                </Border>
+
+            </ControlTemplate>
+        </Setter.Value>
+    </Setter>
+</Style>
+</ResourceDictionary>
